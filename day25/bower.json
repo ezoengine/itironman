@@ -1,0 +1,21 @@
+{
+  "name": "day24",
+  "version": "0.0.0",
+  "authors": [
+    "marty <marty.shu@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "core-icon": "Polymer/core-icon#~0.4.2",
+    "core-icons": "Polymer/core-icons#~0.4.2",
+    "font-roboto": "Polymer/font-roboto#~0.4.2",
+    "core-elements": "Polymer/core-elements#~0.4.2"
+  }
+}

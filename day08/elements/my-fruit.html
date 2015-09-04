@@ -1,0 +1,27 @@
+<link rel="import" href="../bower_components/polymer/polymer.html"> 
+<polymer-element name="my-fruit" attributes='name'>
+  <template>
+    <style>
+    img {
+      width:80px;height:60px;
+    }
+    </style>
+    <h1>{{name}}</h1>
+    <img id='img'>
+  </template>
+  <script>
+  (function(){
+    var imgs = {
+      apple: 'http://www.imcreator.com/wp-content/uploads/2013/08/5658827200_44577279a4_b-296x196.jpg',
+      orange: 'http://www.imcreator.com/wp-content/uploads/2013/08/4021497439_1338fdf3c9_b-296x222.jpg',
+      bnana: 'http://4.bp.blogspot.com/-dnRx2veH0zc/UENIEGyH4aI/AAAAAAAADb0/J7GbQaaljSA/s320/bananas.jpg'
+    };
+    Polymer({
+      nameChanged:function(){
+        this.$.img.setAttribute('src',imgs[this.name]);
+      }
+    });
+  })();
+  </script>
+</polymer-element>
+

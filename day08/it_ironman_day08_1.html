@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="import" href="elements/my-fruit-basket.html">
+    <style>
+    input{
+      -webkit-appearance: none;
+      height: 50px;
+      background-color:#FFF;
+      color:#666;
+      font-weight:bold;
+      border: solid #666 1px;
+      font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type='button' value='apple' onclick="add('apple')">
+    <input type='button' value='bnana' onclick="add('bnana')">
+    <input type='button' value='orange' onclick="add('orange')">
+    <input type='button' value='remove' onclick="del()">
+    <hr>
+		<my-fruit-basket></my-fruit-basket>
+  	<script>
+    function add(name){
+      document.querySelector('my-fruit-basket').basket()
+        .push({name:name});
+    }
+    function del(){
+      document.querySelector('my-fruit-basket').basket()
+        .pop();
+    }
+  	</script>
+  </body>
+</html>
+

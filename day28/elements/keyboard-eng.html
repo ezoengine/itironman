@@ -1,0 +1,86 @@
+<link rel="import" href="paper-calculator-key.html">
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/Flowtype.js/flowtype.js"></script>
+<polymer-element name="keyboard-eng" attributes='fontsize height width'>
+
+  <template>
+    <style>
+    #q {
+      background-color:#eee;
+    }
+    .keys {
+        font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+        height: 25%;
+    }
+    </style>
+    <div id='q'>
+    <div class='keys' horizontal layout>
+      <template id='row1' repeat='{{keys}}'>
+        <paper-calculator-key label='{{key}}' flex on-tap="{{keyTap}}">
+        </paper-calculator-key>
+      </template>
+    </div>
+    <div class='keys' horizontal layout>
+      <div style='width:3%'></div>
+      <template id='row2' repeat='{{keys}}'>
+        <paper-calculator-key label='{{key}}' flex on-tap="{{keyTap}}">
+        </paper-calculator-key>
+      </template>
+      <div style='width:3%'></div>
+    </div>
+    <div class='keys' horizontal layout>
+      <div style='width:6%'></div>
+      <template id='row3' repeat='{{keys}}'>
+        <paper-calculator-key label='{{key}}' flex on-tap="{{keyTap}}">
+        </paper-calculator-key>
+      </template>
+      <div style='width:6%'></div>
+    </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      width: '100%',
+      height: '300px',
+      fontsize: '60px',
+      fontsizeChanged:function(oldValue, newValue){
+        this.$.q.style.fontSize = this.fontsize;
+      },
+      widthChanged:function(oldValue, newValue){
+        this.$.q.style.width = this.width;
+      },
+      heightChanged:function(oldValue, newValue){
+        this.$.q.style.height = this.height;
+      },
+      ready:function(){
+        this.$.q.style.height = this.height;
+        this.$.q.style.width = this.width;
+        this.$.q.style.fontSize = this.fontsize;
+        this.showKeys(this.$.row1,"QWERTYUIOP");
+        this.showKeys(this.$.row2,"ASDFGHJKL");
+        this.showKeys(this.$.row3,"ZXCVBNM");
+        $(this.$.q).flowtype({
+          fontRatio : 20
+        });
+      },
+      showKeys: function (row,keyStr){
+        var keyArray = keyStr.split('');
+        var keyList = [];
+        for(var i=0;i<keyArray.length;i++){
+          keyList.push({key:keyArray[i]});
+        }
+        row.model = {
+          keys: keyList
+        }
+      },
+      keyTap: function(e) {
+        this.fire('keyboard-eng-keytap', {char: e.target.templateInstance.model});
+      },
+      findKey: function(label) {
+        return this.$.keys.querySelector('[label="' + label + '"]');
+      }    
+    });
+  </script>
+
+</polymer-element>

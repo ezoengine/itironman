@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="import" href="elements/d3-flare.html">
+    <link type="text/css" rel="stylesheet" href="elements/d3-flare.css">
+    <style>
+    .node {
+      cursor: pointer;
+    }
+    .node:hover {
+      stroke: #000;
+      stroke-width: 1.5px;
+    }
+    .node--leaf {
+      fill: white;
+    }
+    .label {
+      font: 24px "Helvetica Neue", Helvetica, Arial, sans-serif;
+      text-anchor: middle;
+      text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+    }
+    .label,
+    .node--root,
+    .node--leaf {
+      pointer-events: none;
+    }
+  </style>
+  </head>
+  <body style='background-color:#aaa'>
+      <div id='qq'></div>
+      <d3-flare margin='10' diameter='480'></d3-flare>
+
+  </body>
+
+</html>
+
+

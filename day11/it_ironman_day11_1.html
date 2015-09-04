@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="bower_components/paper-toggle-button/paper-toggle-button.html">
+
+    <link rel="import" href="elements/my-fruit-basket.html">
+    <link rel="stylesheet" type="text/css" href="theme.css">
+  </head>
+  <body>
+
+   <paper-button label="Apple" role="button" onclick="add('apple')">
+   </paper-button>
+   <paper-button label="orange" role="button" onclick="add('orange')">
+   </paper-button>
+   <paper-button label="banana" role="button" onclick="add('banana')">
+   </paper-button>
+   <paper-button label="eat" role="button" onclick="eat()" 
+    style="background:#42bd41;">
+   </paper-button>
+    <div horizontal layout center style="width:320px;height:40px">
+      <div flex>Vertical</div>
+      <paper-toggle-button flex two class="blue" onclick="layout(this)"></paper-toggle-button>
+    </div>
+    <hr>
+		<my-fruit-basket layout></my-fruit-basket>
+  	<script>
+    function layout(ele){
+      if(ele.getAttribute('aria-pressed') == 'true'){
+        document.querySelector('my-fruit-basket')
+        .removeAttribute('vertical');
+      }else {
+        document.querySelector('my-fruit-basket')
+        .setAttribute('vertical','');
+      }
+    }
+    function add(name){
+      document.querySelector('my-fruit-basket').basket()
+        .push({name:name});
+    }
+    function eat(){
+      document.querySelector('my-fruit-basket').basket()
+        .pop();
+    }
+  	</script>
+  </body>
+</html>
+

@@ -1,0 +1,33 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="itironman-card" attributes='name day avatar'>
+<template>
+  <link rel='stylesheet' href="itironman-card.css">
+	<div class='card'>
+		<div id='user' class='avatar'></div>
+		<div class='day'>{{day}}</div>
+		<div class='title'>{{name}} 撰寫的主題</div>
+		<div class='descript'>{{descript}}</div>
+		<div id='ctx' style="display:none">
+			<content ></content>
+		</div>
+	</div>
+</template>
+<script>
+(function(){
+	Polymer({
+		userImage:'',
+		descript:'',
+		ready:function(){
+			this.$.user.style.backgroundImage = "url('elements/badge.png'),url('"+this.userImage+"')";
+			var elem = this.$.ctx;
+			elem.parentNode.removeChild(elem);
+		},
+		created:function(){
+			this.descript = this.querySelector('h1').innerHTML;
+			this.userImage = this.querySelector('img').getAttribute('src');
+		}
+	});
+})();
+</script>
+</polymer-element>

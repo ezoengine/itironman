@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="import" href="elements/d3-flare.html">
+    <link rel="import" href="elements/itironman-card.html">
+  </head>
+  <body style='background-color:#aaa'>
+    <div layout horizontal>
+      <d3-flare margin='10' diameter='480'></d3-flare>
+
+      <div flex style="margin:-15px 10px 10px 10px">
+        <template id='tmp' is="auto-binding" repeat={{itironman}}>
+          <itironman-card day="{{day}}" score="{{value}}" 
+            avatar="{{avatar}}" team="{{team}}" profile="{{id}}">
+            <div class='name'>{{name}}</div>
+          </itironman-card>
+        </template>
+    </div>
+    </div>
+  </body>
+  <script>
+    document.addEventListener('team-rank',function(e){
+      var users = [],data = e.detail , len = data.length;
+      for(var i= len-1;i>= len-10;i--){
+        users.push(data[i]);
+      }
+      document.querySelector('#tmp').model = {
+        'itironman': users
+      };
+    });
+  </script>
+</html>

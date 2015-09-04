@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="import" href="bower_components/core-media-query/core-media-query.html">
+    <style>
+      .crop {
+          width: 160px;
+          height: 500px;
+          overflow: hidden;
+        }
+      .crop img {
+          width: 800px;
+          height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+
+  <template is='auto-binding'>
+    <core-media-query queryMatches="{{lv4Screen}}"
+                      query='min-width:900px'></core-media-query>
+    <core-media-query queryMatches="{{lv3Screen}}" 
+                      query='min-width:768px'></core-media-query>
+    <core-media-query queryMatches="{{lv2Screen}}" 
+                      query='min-width:640px'></core-media-query>
+    <core-media-query queryMatches="{{lv1Screen}}" 
+                      query='min-width:480px'></core-media-query>
+
+    <div class="crop">
+      <template if='{{lv4Screen}}'>
+        超級賽亞人4
+         <img style="margin-left:-620px" src="demo.jpg"/>
+      </template>
+      <template if='{{!lv4Screen && lv3Screen}}'>
+        超級賽亞人3
+         <img style="margin-left:-470px" src="demo.jpg"/>
+       </template>
+      <template if='{{!lv4Screen && !lv3Screen && lv2Screen}}'>
+        超級賽亞人2
+         <img style="margin-left:-300px" src="demo.jpg"/>
+      </template>
+      <template if='{{!lv4Screen && !lv3Screen && !lv2Screen && lv1Screen}}'>超級賽亞人1
+         <img style="margin-left:-150px" src="demo.jpg"/>
+      </template>
+        正常的悟空
+         <img style="margin-left:0px" src="demo.jpg"/>
+
+    </div>
+
+    <div style='position:absolute;top:0;right:0'>
+      <div>拉大螢幕寬度讓悟空變身</div>
+      <img style='width:100px' src='http://www.clipartbest.com/cliparts/MTL/oke/MTLoke6Ta.png'>
+    </div>
+  </div>
+  </template>
+
+
+  </body>
+</html>
+

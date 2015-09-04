@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <title>Paper Calculator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="bower_components/platform/platform.js"></script>
+  <link rel="import" href="elements/keyboard-eng.html">
+  <style>
+    body, html {
+      height: 100%;
+    }
+  </style>
+</head>
+<body unresolved>
+  <div style='height:100%'>
+    <keyboard-eng id='kb' height='100%'></keyboard-eng>
+  </div>
+  <script>
+    addEventListener('keyboard-eng-keytap',function(e){
+      console.log(e.detail);
+    });
+  </script>
+</body>
+</html>

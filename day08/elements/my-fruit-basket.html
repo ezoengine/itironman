@@ -1,0 +1,36 @@
+<link rel="import" href="../bower_components/polymer/polymer.html"> 
+<link rel="import" href="my-fruit.html">
+<polymer-element name="my-fruit-basket" attributes='show'>
+  <template>
+    <style>
+      my-fruit {
+        float:left;
+        margin:5px;
+      }
+    </style>
+      <template bind='{{fruits}}'>
+        <h2>size:{{length}}</h1>
+      </template>
+    <template id='tmpl' repeat='{{f in fruits}}'>
+      <template if="{{f.name|kindOf(show)}}">
+        <my-fruit name="{{f.name}}"></my-fruit>
+      </template>
+    </template>
+  </template>
+  <script>
+  (function(){
+    PolymerExpressions.prototype.kindOf = function(obja,objb){
+      return objb==null || objb=='' || obja===objb;
+    }
+    Polymer({
+      ready:function(){
+        this.$.tmpl.model.fruits = [];
+      },
+      basket:function(){
+        return this.$.tmpl.model.fruits;
+      }
+    });
+  })();
+  </script>
+</polymer-element>
+

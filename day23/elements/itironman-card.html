@@ -1,0 +1,60 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<polymer-element name="itironman-card" attributes='profile team name avatar score days' >
+  <template>
+  <link rel="stylesheet" href="semantic.min.css">
+  <style>
+    .myAvatar {
+      display: inline-block;
+      text-align: center;
+      float: left;
+      width: 100%;
+    }
+    .content {
+      display: block;
+      width: 100%;
+      }
+
+    .card {
+      width:180px;
+      display:inline-block;
+    }
+    .nickname {
+      max-height:25px;
+    }
+  </style>
+  <a class="ui raised segment card" href="http://ithelp.ithome.com.tw/ironman7/app/profile/{{profile}}">
+    <div id='label' class="ui ribbon label {{color}}">{{team}}</div>
+    <div class="ui header">
+      <div class="myAvatar" >
+        <img class="ui avatar image" src="http://ithelp.ithome.com.tw{{avatar}}" >
+        <p class="nickname"><content select="div.name"></content></p>
+        <div id='day' style="font-size:1rem">{{days}}天</div>
+      </div>
+      <div class="content" style="text-align:center">
+        <div class="sub header">
+           <div>目前積分</div>
+           <div>{{score}}</div>
+        </div>
+      </div>
+    </div>
+  </a>
+</template>
+<script>
+(function(){
+  var teamColor = {'mis': 'black', 'dev': 'green', 'other': 'red', 'life': 'blue', 'cloud': 'orange', 'app': 'purple', 'student': 'teal'};
+  Polymer({
+    avatarChanged:function(){
+      if(this.avatar===''){
+        this.avatar = '/ironman7/app/images/bearman_avatar.png';
+      }
+    },
+    teamChanged:function(){
+      var day = this.$.day;
+      var label = this.$.label;  
+      day.className = teamColor[this.team];
+      label.className = label.className + " "+teamColor[this.team];
+    }
+  });
+})();
+</script>
+</polymer-element>

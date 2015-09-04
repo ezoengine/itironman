@@ -1,0 +1,91 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<polymer-element name="d3-flare" verify attributes='margin diameter'>
+<template>
+  <link type="text/css" rel="stylesheet" href="d3-flare.css">
+  <div id='d3'></div>
+</template>
+<script>
+(function(){
+  Polymer({
+    margin : 11,
+    diameter : 800,
+    ready:function(){
+      var my = this;
+      this.color = d3.scale.linear()
+          .domain([-1, 5])
+          .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+          .interpolate(d3.interpolateHcl);
+
+      this.pack = d3.layout.pack()
+          .padding(2)
+          .size([my.diameter - my.margin, my.diameter - my.margin])
+          .value(function(d) { return d.size; })
+
+      this.svg = d3.select(this.$.d3).append("svg")
+          .attr("width", my.diameter)
+          .attr("height", my.diameter)
+        .append("g")
+          .attr("transform", "translate(" + my.diameter / 2 + "," + my.diameter / 2 + ")");            
+      
+      d3.json("elements/data.json", function(error, root) {
+        if (error) return console.error(error);
+
+            my.focus = root,
+            my.nodes = my.pack.nodes(root);
+
+        my.circle = my.svg.selectAll("circle")
+            .data(my.nodes)
+          .enter().append("circle")
+            .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
+            .style("fill", function(d) { return d.children ? my.color(d.depth) : null; })
+            .on("click", function(d) { 
+              my.fire('team-rank', d.children);
+              if (focus !== d) my.zoom(d), d3.event.stopPropagation(); });
+
+        my.text = my.svg.selectAll("text")
+            .data(my.nodes)
+            .enter().append("text")
+            .attr("class", "label")
+            .style("fill-opacity", function(d) { return d.parent === root ? 1 : 0; })
+            .style("display", function(d) { return d.parent === root ? null : "none"; })
+            .text(function(d) { return d.name; });
+
+        my.node = my.svg.selectAll("circle,text");
+
+        d3.select(my.$.d3)
+            .style("background", my.color(-1))
+            .on("click", function() { my.zoom(root); });
+
+        my.zoomTo([root.x, root.y, root.r * 2 + my.margin]);
+      });
+
+      d3.select(this.$.d3).style("height", my.diameter + "px");
+      d3.select(this.$.d3).style("width", my.diameter + "px");
+    },
+    zoom:function(d){
+      var focus0 = focus; focus = d;
+      var my = this;
+      var transition = d3.transition()
+          .duration(d3.event.altKey ? 7500 : 750)
+          .tween("zoom", function(d) {
+            var i = d3.interpolateZoom(my.view, [focus.x, focus.y, focus.r * 2 + my.margin]);
+            return function(t) { my.zoomTo(i(t)); };
+          });
+
+      transition.selectAll("text")
+        .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
+          .style("fill-opacity", function(d) { 
+            return d.parent === focus ? 1 : 0; })
+          .each("start", function(d) { if (d.parent === focus) my.style.display = "inline"; })
+          .each("end", function(d) { if (d.parent !== focus) my.style.display = "none"; });
+    },
+    zoomTo:function(v) {
+      var k = this.diameter / v[2]; this.view = v;
+      this.node.attr("transform", function(d) { return "translate(" + (d.x - v[0]) * k + "," + (d.y - v[1]) * k + ")"; });
+      this.circle.attr("r", function(d) { return d.r * k; });
+    }
+  });
+})();
+</script>
+</polymer-element>

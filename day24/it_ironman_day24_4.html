@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <title>image-ripple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="bower_components/platform/platform.js"></script>
+  <link rel="import" href="elements/paper-ripple.html">
+  <style>
+	.block {
+      width: 300px;height: 240px;
+      background-color: #eee;
+      position:relative;
+      background:url(http://lorempixel.com/300/240/nature/);
+    }
+  </style>
+</head>
+<body unresolved>
+    <div class="block">
+    	<paper-ripple class="recenteringTouch" fit style="color:#eee">
+    	</paper-ripple>
+   	</div>
+   	<script>
+	var pr = document.querySelector('paper-ripple');
+	function randomClick(){
+		e = { x:Math.random()*300, y:Math.random()*240};
+		pr.downAction(e);
+   		setTimeout('eval(pr.upAction(e))',100);
+	}
+   	document.addEventListener('polymer-ready',function(){
+   		setInterval(randomClick,Math.random()*1500);
+   	});
+   	</script>
+</body>
+</html>
+
+

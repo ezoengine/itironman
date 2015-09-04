@@ -1,0 +1,49 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<polymer-element name="itironman-card" attributes='profile team name avatar score days' >
+  <template>
+  <link rel="stylesheet" href="semantic.min.css">
+  <style>
+    .myAvatar {
+      display: inline-block;
+      text-align: center;
+      float: left;
+      width: 100%;
+    }
+    .content {
+      display: block;
+      width: 100%;
+      }
+
+    .card {
+      width:180px;
+      display:inline-block;
+    }
+  </style>
+  <a class="ui raised segment card" href="http://ithelp.ithome.com.tw/ironman7/app/profile/{{profile}}">
+    <div class="ui ribbon label teal">{{team}}</div>
+    <div class="ui header">
+      <div class="myAvatar" >
+        <img class="ui avatar image" src="http://ithelp.ithome.com.tw{{avatar}}" >
+        <p class="nickname"><content select="div.name"></content></p>
+      </div>
+      <div class="content" style="text-align:center">
+        <div class="sub header">
+           <div>目前積分</div>
+           <div>{{score}}</div>
+        </div>
+      </div>
+    </div>
+  </a>
+</template>
+<script>
+(function(){
+  Polymer({
+    avatarChanged:function(){
+      if(this.avatar===''){
+        this.avatar = '/ironman7/app/images/bearman_avatar.png';
+      }
+    }
+  });
+})();
+</script>
+</polymer-element>

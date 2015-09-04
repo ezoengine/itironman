@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="import" href="elements/itironman-card.html">
+    <link rel="import" href="bower_components/core-ajax/core-ajax.html">
+  </head>
+  <body style='background-color:#aaa'>
+
+    <core-ajax auto url="elements/ironman.json" handleAs="json">
+    </core-ajax>
+    <div layout horizontal>
+      <div flex style="margin:-15px 10px 10px 10px">
+        <template id='tmp' is="auto-binding" repeat={{itironman}}>
+          <itironman-card days="{{finish_days}}" score="{{total_scores}}" 
+            avatar="{{avatar}}" team="{{team}}" profile="{{user_id}}">
+            <div class='name'>{{nickname}}</div>
+          </itironman-card>
+        </template>
+      </div>
+    </div>
+  </body>
+   
+  <script>
+    document.addEventListener('polymer-ready', function() {
+      var ajax = document.querySelector("core-ajax");
+      ajax.addEventListener("core-response", 
+        function(e) {
+          var users  = e.detail.response.data.signups;
+          sortByKey(users,'total_scores',1);
+          document.querySelector('#tmp').model = {
+            'itironman': users
+          };
+        }
+      );
+    });
+    function sortByKey(array, key,order) {
+      return array.sort(function(a, b) {
+          var x = parseInt(a[key]);
+          var y = parseInt(b[key]);
+          return ((x < y) ? 1*order : ((x > y) ? -1*order : 0));
+      });
+    }
+  </script>
+</html>
+
+

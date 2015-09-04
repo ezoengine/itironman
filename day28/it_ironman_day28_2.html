@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <title>Paper Calculator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="bower_components/platform/platform.js"></script>
+  <link rel="import" href="elements/keyboard-eng.html">
+  <link rel="import" href="elements/paper-calculator-output.html">
+  <style>
+      body,html {
+        height:100%;
+      }
+      #output {
+        width: 100%;
+        height: 110px;
+        background-color:#eee;
+        border: 2px solid;
+      }
+
+      #output.wide {      
+        box-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
+
+      }
+      keyboard-eng{
+       background-color:#fee; 
+      }
+  </style>
+</head>
+<body unresolved>
+  <paper-calculator-output id='output' expression=''>
+  </paper-calculator-output>
+  
+  <div style='height:70%'>
+    <keyboard-eng id='kb' height='100%'></keyboard-eng>
+  </div>
+  <script>
+    addEventListener('keyboard-eng-keytap',function(e){
+      var output = document.querySelector('#output');
+      output.expression += e.detail.char.key;
+    });
+  </script>
+</body>
+</html>

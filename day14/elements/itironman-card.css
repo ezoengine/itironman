@@ -1,0 +1,40 @@
+.card {
+	width:600px;
+	height:400px;
+	position:relative;
+	background-image:url('pic_600x400.png');
+}
+.card .avatar {
+	top:235px;
+	left:63px;
+	position:relative;
+	background-position: 30%,50%; 
+	background-size: 90px, 100px;
+	width:90px;height:90px;
+}
+.card .day {
+	top:187px;
+	left:501px;
+	position:relative;
+	color:#cb0000;
+	font-size:25px;
+	font-family: '微軟正黑體', Tahoma,Verdana, Arial, sans-serif !important;
+}
+.card .title {
+	top:115px;
+	left:168px;
+	position:relative;
+	color:#484848;
+	font-size:20px;
+	font-family: Tahoma,Verdana, Arial, sans-serif !important;
+}
+.card .descript {
+	top:123px;
+	left:164px;
+	width:200px;
+	position:relative;
+	color:#484848;
+	font-size:18px;
+	line-height: 25px;
+	font-family: Tahoma,Verdana, Arial, sans-serif !important;
+}

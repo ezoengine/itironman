@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<style>body{font: 52px/1.3 'Droid Sans Mono', sans-serif;}</style>
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Droid+Sans+Mono">
+		<script src="bower_components/platform/platform.js"></script>
+		<link rel="import" href="elements/x-sentence.html">
+		<script src="jquery-2.1.1.min.js"></script>
+	</head>
+	<body>
+		<template repeat>
+			<img src='speak.png' width='48px' onclick='this.nextElementSibling.speak()'>{{cn}}<x-sentence size='32'>{{en}}</x-sentence>
+		</template>
+		<script>
+		document.addEventListener('polymer-ready',function(){
+			document.querySelector('template').model = [
+			   {en:'this is a book' , cn:'這是一本書'},
+			   {en:'a place to discuss and evolve web component best-practices',cn:'一個地方討論和發展web組件的最佳實踐'},
+			   {en:'How GitHub is using Web Components in production',cn:'如何GitHub正式環境中使用Web組件'}
+			];
+		});
+		</script>
+	</body>
+</html>

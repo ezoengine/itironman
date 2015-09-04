@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="css/app.css"/>
+  <link rel="stylesheet" href="css/tabs.css"/>
+  <script src="angular.min.js"></script>
+  <script src="bower_components/platform/platform.js"></script>
+  <link   rel="import" href="elements/polymerComponents.html"/>
+  <script src="elements/angularjsComponents.js"></script>
+  </head>
+<body ng-app="tabs">
+
+<article>
+  <!-- Polymer Component -->
+  <section>
+      <wc-tabs id='wc' heading="{{heading}}">
+        <wc-panel heading="Polymer Panel">
+          <h1>Heading: {{heading}}</h1>
+        </wc-panel>
+      </wc-tabs>
+  </section>
+  <!-- AngularJS Component -->
+  <section>
+      <angular-tabs id='ng' heading="{{heading}}">
+        <panel heading="AngularJS Panel">
+          <h1>Heading: {{heading}}</h1>
+        </panel>
+      </angular-tabs>
+  </section>
+
+</article>
+
+<script>
+document.querySelector('#addlightdom').addEventListener('click', function(e) {
+  var panel = document.createElement('wc-panel');
+  panel.heading = Math.random();
+  panel.textContent = panel.heading;
+  document.querySelector('wc-tabs').appendChild(panel);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1754 @@
+<!--
+    @license
+    Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!doctype html>
+<html>
+<head>
+
+  <title>Paper Calculator</title>
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <script src="bower_components/platform/platform.js"></script>
+  
+  <div hidden><!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+/**
+ * @group Paper Elements
+ *
+ * A fancy looking calculator that can only perform simple math calculation. 
+ * 
+ * @element paper-calculator
+ * @homepage github.io
+ */
+-->
+
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!--
+/**
+ * @group Polymer Core Elements
+ * @element core-media-query
+ * @status beta
+ * @homepage github.io
+ *
+ * core-media-query can be used to data bind to a CSS media query.
+ * The "query" property is a bare CSS media query.
+ * The "queryMatches" property will be a boolean representing if the page matches that media query.
+ *
+ * core-media-query uses media query listeners to dynamically update the "queryMatches" property.
+ * A "core-media-change" event also fires when queryMatches changes.
+ *
+ * Example:
+ *
+ *      <core-media-query query="max-width: 640px" queryMatches="{{phoneScreen}}"></core-media-query>
+ *
+ */
+
+ /**
+  * Fired when the media query state changes
+  *
+  * @event core-media-change
+  */
+-->
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<style shim-shadowdom="">
+/*******************************
+          Flex Layout
+*******************************/
+
+html /deep/ [layout][horizontal], html /deep/ [layout][vertical] {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+html /deep/ [layout][horizontal][inline], html /deep/ [layout][vertical][inline] {
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+}
+
+html /deep/ [layout][horizontal] {
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+html /deep/ [layout][horizontal][reverse] {
+  -ms-flex-direction: row-reverse;
+  -webkit-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
+html /deep/ [layout][vertical] {
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+html /deep/ [layout][vertical][reverse] {
+  -ms-flex-direction: column-reverse;
+  -webkit-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+}
+
+html /deep/ [layout][wrap] {
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+html /deep/ [layout][wrap-reverse] {
+  -ms-flex-wrap: wrap-reverse;
+  -webkit-flex-wrap: wrap-reverse;
+  flex-wrap: wrap-reverse;
+}
+
+html /deep/ [flex] {
+  -ms-flex: 1 1 0.000000001px;
+  -webkit-flex: 1;
+  flex: 1;
+  -webkit-flex-basis: 0.000000001px;
+  flex-basis: 0.000000001px;
+}
+
+html /deep/ [vertical][layout] > [flex][auto-vertical], html /deep/ [vertical][layout]::shadow [flex][auto-vertical] {
+  -ms-flex: 1 1 auto;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+}
+
+html /deep/ [flex][auto] {
+  -ms-flex: 1 1 auto;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+}
+
+html /deep/ [flex][none] {
+  -ms-flex: none;
+  -webkit-flex: none;
+  flex: none;
+}
+
+html /deep/ [flex][one] {
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+html /deep/ [flex][two] {
+  -ms-flex: 2;
+  -webkit-flex: 2;
+  flex: 2;
+}
+
+html /deep/ [flex][three] {
+  -ms-flex: 3;
+  -webkit-flex: 3;
+  flex: 3;
+}
+
+html /deep/ [flex][four] {
+  -ms-flex: 4;
+  -webkit-flex: 4;
+  flex: 4;
+}
+
+html /deep/ [flex][five] {
+  -ms-flex: 5;
+  -webkit-flex: 5;
+  flex: 5;
+}
+
+html /deep/ [flex][six] {
+  -ms-flex: 6;
+  -webkit-flex: 6;
+  flex: 6;
+}
+
+html /deep/ [flex][seven] {
+  -ms-flex: 7;
+  -webkit-flex: 7;
+  flex: 7;
+}
+
+html /deep/ [flex][eight] {
+  -ms-flex: 8;
+  -webkit-flex: 8;
+  flex: 8;
+}
+
+html /deep/ [flex][nine] {
+  -ms-flex: 9;
+  -webkit-flex: 9;
+  flex: 9;
+}
+
+html /deep/ [flex][ten] {
+  -ms-flex: 10;
+  -webkit-flex: 10;
+  flex: 10;
+}
+
+html /deep/ [flex][eleven] {
+  -ms-flex: 11;
+  -webkit-flex: 11;
+  flex: 11;
+}
+
+html /deep/ [flex][twelve] {
+  -ms-flex: 12;
+  -webkit-flex: 12;
+  flex: 12;
+}
+
+/* alignment in cross axis */
+
+html /deep/ [layout][start] {
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+
+html /deep/ [layout][center], html /deep/ [layout][center-center] {
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+html /deep/ [layout][end] {
+  -ms-flex-align: end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+}
+
+/* alignment in main axis */
+
+html /deep/ [layout][start-justified] {
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+}
+
+html /deep/ [layout][center-justified], html /deep/ [layout][center-center] {
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+html /deep/ [layout][end-justified] {
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+html /deep/ [layout][around-justified] {
+  -ms-flex-pack: distribute;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+
+html /deep/ [layout][justified] {
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+/* self alignment */
+
+html /deep/ [self-start] {
+  -ms-align-self: flex-start;
+  -webkit-align-self: flex-start;
+  align-self: flex-start;
+}
+
+html /deep/ [self-center] {
+  -ms-align-self: center;
+  -webkit-align-self: center;
+  align-self: center;
+}
+
+html /deep/ [self-end] {
+  -ms-align-self: flex-end;
+  -webkit-align-self: flex-end;
+  align-self: flex-end;
+}
+
+html /deep/ [self-stretch] {
+  -ms-align-self: stretch;
+  -webkit-align-self: stretch;
+  align-self: stretch;
+}
+
+/*******************************
+          Other Layout
+*******************************/
+
+html /deep/ [block] {
+  display: block;
+}
+
+/* ie support for hidden */
+html /deep/ [hidden] {
+  display: none !important;
+}
+
+html /deep/ [relative] {
+  position: relative;
+}
+
+html /deep/ [fit] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+body[fullbleed] {
+  margin: 0;
+  height: 100vh;
+}
+
+/*******************************
+            Other
+*******************************/
+
+html /deep/ [segment], html /deep/ segment {
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 1em 0.5em;
+  padding: 1em;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 5px 5px 5px 5px;
+}
+
+</style>
+
+<script src="bower_components/polymer/polymer.js"></script>
+<!--<link rel="import" href="../polymer-dev/polymer.html">--> 
+
+<polymer-element name="core-media-query" attributes="query queryMatches" assetpath="bower_components/core-media-query/">
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer('core-media-query', {
+
+      /**
+       * The Boolean return value of the media query
+       *
+       * @attribute queryMatches
+       * @type Boolean
+       * @default false
+       */
+      queryMatches: false,
+
+      /**
+       * The CSS media query to evaulate
+       *
+       * @attribute query
+       * @type string
+       * @default ''
+       */
+      query: '',
+      ready: function() {
+        this._mqHandler = this.queryHandler.bind(this);
+        this._mq = null;
+      },
+      queryChanged: function() {
+        if (this._mq) {
+          this._mq.removeListener(this._mqHandler);
+        }
+        var query = this.query;
+        if (query[0] !== '(') {
+          query = '(' + this.query + ')';
+        }
+        this._mq = window.matchMedia(query);
+        this._mq.addListener(this._mqHandler);
+        this.queryHandler(this._mq);
+      },
+      queryHandler: function(mq) {
+        this.queryMatches = mq.matches;
+        this.asyncFire('core-media-change', mq);
+      }
+    });
+  </script>
+</polymer-element>
+
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+
+
+<polymer-element name="paper-calculator-output" attributes="expression result error" assetpath="">
+
+  <template>
+
+    <style>
+
+      :host {
+        display: block;
+      }
+
+      .output {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding-right: 30px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        background-color: transparent;
+        color: #b3b3b3;
+        overflow: hidden;
+      }
+
+      .output.show-result {
+        color: #eee;
+      }
+
+      .expression-outer {
+        width: 100%;
+        height: 100%;
+        font-size: 5.625em;
+        font-weight: 100;
+        text-align: right;
+        overflow: hidden;
+      }
+
+      .show-result > .expression-outer {
+        height: 38%;
+        font-size: 2.5em;
+        font-weight: 400;
+      }
+
+      #expression {
+        white-space: nowrap;
+      }
+
+      .output.error #expression {
+        display: none;
+      }
+
+      #error {
+        display: none;
+        color: #eee;
+      }
+
+      .output.error #error {
+        display: block;
+      }
+
+      .result {
+        visibility: hidden;
+      }
+
+      .show-result > .result {
+        visibility: visible;
+        height: 62%;
+        font-weight: 400;
+      }
+
+      .result-equal {
+        padding: 0 30px;
+        font-size: 2.5em;
+      }
+
+      .result-value {
+        font-size: 5em;
+        overflow: hidden;
+      }
+
+    </style>
+
+    <div class="output {{ {error: error, 'show-result': result && !error } | tokenList }}">
+
+      <div class="expression-outer" horizontal="" end-justified="" center="" layout="">
+        <div id="expression">{{expression}}</div>
+        <div id="error">{{error}}</div>
+      </div>
+
+   
+
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer('paper-calculator-output');
+
+  </script>
+
+</polymer-element>
+
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+`paper-ripple` provides a visual effect that other paper elements can
+use to simulate a rippling effect emanating from the point of contact.  The
+effect can be visualized as a concentric circle with motion.
+
+Example:
+
+    <paper-ripple></paper-ripple>
+
+`paper-ripple` listens to "down" and "up" events so it would display ripple
+effect when touches on it.  You can also defeat the default behavior and
+manually route the down and up actions to the ripple element.  Note that it is
+important if you call downAction() you will have to make sure to call upAction()
+so that `paper-ripple` would end the animation loop.
+
+Example:
+
+    <paper-ripple id="ripple" style="pointer-events: none;"></paper-ripple>
+    ...
+    downAction: function(e) {
+      this.$.ripple.downAction({x: e.x, y: e.y});
+    },
+    upAction: function(e) {
+      this.$.ripple.upAction();
+    }
+
+Styling ripple effect:
+
+  Use CSS color property to style the ripple:
+
+    paper-ripple {
+      color: #4285f4;
+    }
+
+  Note that CSS color property is inherited so it is not required to set it on
+  the `paper-ripple` element directly.
+
+Apply `recenteringTouch` class to make the recentering rippling effect.
+
+    <paper-ripple class="recenteringTouch"></paper-ripple>
+
+Apply `circle` class to make the rippling effect within a circle.
+
+    <paper-ripple class="circle"></paper-ripple>
+
+@group Paper Elements
+@element paper-ripple
+@homepage github.io
+-->
+
+
+
+<polymer-element name="paper-ripple" attributes="initialOpacity opacityDecayVelocity" assetpath="bower_components/paper-ripple/">
+<template>
+
+  <style>
+
+    :host {
+      display: block;
+      position: relative;
+      border-radius: inherit;
+      overflow: hidden;
+    }
+
+    :host-context([noink]) {
+      pointer-events: none;
+    }
+
+    #bg, #waves, .wave-container, .wave {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #bg, .wave {
+      opacity: 0;
+    }
+
+    #waves, .wave {
+      overflow: hidden;
+    }
+
+    .wave-container, .wave {
+      border-radius: 50%;
+    }
+
+    :host(.circle) #bg,
+    :host(.circle) #waves {
+      border-radius: 50%;
+    }
+
+    :host(.circle) .wave-container {
+      overflow: hidden;
+    }
+
+  </style>
+
+  <div id="bg"></div>
+  <div id="waves">
+  </div>
+
+</template>
+<script>
+
+  (function() {
+
+    var waveMaxRadius = 150;
+    //
+    // INK EQUATIONS
+    //
+    function waveRadiusFn(touchDownMs, touchUpMs, anim) {
+      // Convert from ms to s.
+      var touchDown = touchDownMs / 1000;
+      var touchUp = touchUpMs / 1000;
+      var totalElapsed = touchDown + touchUp;
+      var ww = anim.width, hh = anim.height;
+      // use diagonal size of container to avoid floating point math sadness
+      var waveRadius = Math.min(Math.sqrt(ww * ww + hh * hh), waveMaxRadius) * 1.1 + 5;
+      var duration = 1.1 - .2 * (waveRadius / waveMaxRadius);
+      var tt = (totalElapsed / duration);
+
+      var size = waveRadius * (1 - Math.pow(80, -tt));
+      return Math.abs(size);
+    }
+
+    function waveOpacityFn(td, tu, anim) {
+      // Convert from ms to s.
+      var touchDown = td / 1000;
+      var touchUp = tu / 1000;
+      var totalElapsed = touchDown + touchUp;
+
+      if (tu <= 0) {  // before touch up
+        return anim.initialOpacity;
+      }
+      return Math.max(0, anim.initialOpacity - touchUp * anim.opacityDecayVelocity);
+    }
+
+    function waveOuterOpacityFn(td, tu, anim) {
+      // Convert from ms to s.
+      var touchDown = td / 1000;
+      var touchUp = tu / 1000;
+
+      // Linear increase in background opacity, capped at the opacity
+      // of the wavefront (waveOpacity).
+      var outerOpacity = touchDown * 0.3;
+      var waveOpacity = waveOpacityFn(td, tu, anim);
+      return Math.max(0, Math.min(outerOpacity, waveOpacity));
+    }
+
+    // Determines whether the wave should be completely removed.
+    function waveDidFinish(wave, radius, anim) {
+      var waveOpacity = waveOpacityFn(wave.tDown, wave.tUp, anim);
+
+      // If the wave opacity is 0 and the radius exceeds the bounds
+      // of the element, then this is finished.
+      return waveOpacity < 0.01 && radius >= Math.min(wave.maxRadius, waveMaxRadius);
+    };
+
+    function waveAtMaximum(wave, radius, anim) {
+      var waveOpacity = waveOpacityFn(wave.tDown, wave.tUp, anim);
+
+      return waveOpacity >= anim.initialOpacity && radius >= Math.min(wave.maxRadius, waveMaxRadius);
+    }
+
+    //
+    // DRAWING
+    //
+    function drawRipple(ctx, x, y, radius, innerAlpha, outerAlpha) {
+      // Only animate opacity and transform
+      if (outerAlpha !== undefined) {
+        ctx.bg.style.opacity = outerAlpha;
+      }
+      ctx.wave.style.opacity = innerAlpha;
+
+      var s = radius / (ctx.containerSize / 2);
+      var dx = x - (ctx.containerWidth / 2);
+      var dy = y - (ctx.containerHeight / 2);
+
+      ctx.wc.style.webkitTransform = 'translate3d(' + dx + 'px,' + dy + 'px,0)';
+      ctx.wc.style.transform = 'translate3d(' + dx + 'px,' + dy + 'px,0)';
+
+      // 2d transform for safari because of border-radius and overflow:hidden clipping bug.
+      // https://bugs.webkit.org/show_bug.cgi?id=98538
+      ctx.wave.style.webkitTransform = 'scale(' + s + ',' + s + ')';
+      ctx.wave.style.transform = 'scale3d(' + s + ',' + s + ',1)';
+    }
+
+    //
+    // SETUP
+    //
+    function createWave(elem) {
+      var elementStyle = window.getComputedStyle(elem);
+      var fgColor = elementStyle.color;
+
+      var inner = document.createElement('div');
+      inner.style.backgroundColor = fgColor;
+      inner.classList.add('wave');
+
+      var outer = document.createElement('div');
+      outer.classList.add('wave-container');
+      outer.appendChild(inner);
+
+      var container = elem.$.waves;
+      container.appendChild(outer);
+
+      elem.$.bg.style.backgroundColor = fgColor;
+
+      var wave = {
+        bg: elem.$.bg,
+        wc: outer,
+        wave: inner,
+        waveColor: fgColor,
+        maxRadius: 0,
+        isMouseDown: false,
+        mouseDownStart: 0.0,
+        mouseUpStart: 0.0,
+        tDown: 0,
+        tUp: 0
+      };
+      return wave;
+    }
+
+    function removeWaveFromScope(scope, wave) {
+      if (scope.waves) {
+        var pos = scope.waves.indexOf(wave);
+        scope.waves.splice(pos, 1);
+        // FIXME cache nodes
+        wave.wc.remove();
+      }
+    };
+
+    // Shortcuts.
+    var pow = Math.pow;
+    var now = Date.now;
+    if (window.performance && performance.now) {
+      now = performance.now.bind(performance);
+    }
+
+    function cssColorWithAlpha(cssColor, alpha) {
+        var parts = cssColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        if (typeof alpha == 'undefined') {
+            alpha = 1;
+        }
+        if (!parts) {
+          return 'rgba(255, 255, 255, ' + alpha + ')';
+        }
+        return 'rgba(' + parts[1] + ', ' + parts[2] + ', ' + parts[3] + ', ' + alpha + ')';
+    }
+
+    function dist(p1, p2) {
+      return Math.sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+    }
+
+    function distanceFromPointToFurthestCorner(point, size) {
+      var tl_d = dist(point, {x: 0, y: 0});
+      var tr_d = dist(point, {x: size.w, y: 0});
+      var bl_d = dist(point, {x: 0, y: size.h});
+      var br_d = dist(point, {x: size.w, y: size.h});
+      return Math.max(tl_d, tr_d, bl_d, br_d);
+    }
+
+    Polymer('paper-ripple', {
+
+      /**
+       * The initial opacity set on the wave.
+       *
+       * @attribute initialOpacity
+       * @type number
+       * @default 0.25
+       */
+      initialOpacity: 0.25,
+
+      /**
+       * How fast (opacity per second) the wave fades out.
+       *
+       * @attribute opacityDecayVelocity
+       * @type number
+       * @default 0.8
+       */
+      opacityDecayVelocity: 0.8,
+
+      backgroundFill: true,
+      pixelDensity: 2,
+
+      eventDelegates: {
+        down: 'downAction',
+        up: 'upAction'
+      },
+
+      ready: function() {
+        this.waves = [];
+      },
+
+      downAction: function(e) {
+        var wave = createWave(this);
+
+        this.cancelled = false;
+        wave.isMouseDown = true;
+        wave.tDown = 0.0;
+        wave.tUp = 0.0;
+        wave.mouseUpStart = 0.0;
+        wave.mouseDownStart = now();
+
+        var rect = this.getBoundingClientRect();
+        var width = rect.width;
+        var height = rect.height;
+        var touchX = e.x - rect.left;
+        var touchY = e.y - rect.top;
+
+        wave.startPosition = {x:touchX, y:touchY};
+
+        if (this.classList.contains("recenteringTouch")) {
+          wave.endPosition = {x: width / 2,  y: height / 2};
+          wave.slideDistance = dist(wave.startPosition, wave.endPosition);
+        }
+        wave.containerSize = Math.max(width, height);
+        wave.containerWidth = width;
+        wave.containerHeight = height;
+        wave.maxRadius = distanceFromPointToFurthestCorner(wave.startPosition, {w: width, h: height});
+
+        // The wave is circular so constrain its container to 1:1
+        wave.wc.style.top = (wave.containerHeight - wave.containerSize) / 2 + 'px';
+        wave.wc.style.left = (wave.containerWidth - wave.containerSize) / 2 + 'px';
+        wave.wc.style.width = wave.containerSize + 'px';
+        wave.wc.style.height = wave.containerSize + 'px';
+
+        this.waves.push(wave);
+
+        if (!this._loop) {
+          this._loop = this.animate.bind(this, {
+            width: width,
+            height: height
+          });
+          requestAnimationFrame(this._loop);
+        }
+        // else there is already a rAF
+      },
+
+      upAction: function() {
+        for (var i = 0; i < this.waves.length; i++) {
+          // Declare the next wave that has mouse down to be mouse'ed up.
+          var wave = this.waves[i];
+          if (wave.isMouseDown) {
+            wave.isMouseDown = false
+            wave.mouseUpStart = now();
+            wave.mouseDownStart = 0;
+            wave.tUp = 0.0;
+            break;
+          }
+        }
+        this._loop && requestAnimationFrame(this._loop);
+      },
+
+      cancel: function() {
+        this.cancelled = true;
+      },
+
+      animate: function(ctx) {
+        var shouldRenderNextFrame = false;
+
+        var deleteTheseWaves = [];
+        // The oldest wave's touch down duration
+        var longestTouchDownDuration = 0;
+        var longestTouchUpDuration = 0;
+        // Save the last known wave color
+        var lastWaveColor = null;
+        // wave animation values
+        var anim = {
+          initialOpacity: this.initialOpacity,
+          opacityDecayVelocity: this.opacityDecayVelocity,
+          height: ctx.height,
+          width: ctx.width
+        }
+
+        for (var i = 0; i < this.waves.length; i++) {
+          var wave = this.waves[i];
+
+          if (wave.mouseDownStart > 0) {
+            wave.tDown = now() - wave.mouseDownStart;
+          }
+          if (wave.mouseUpStart > 0) {
+            wave.tUp = now() - wave.mouseUpStart;
+          }
+
+          // Determine how long the touch has been up or down.
+          var tUp = wave.tUp;
+          var tDown = wave.tDown;
+          longestTouchDownDuration = Math.max(longestTouchDownDuration, tDown);
+          longestTouchUpDuration = Math.max(longestTouchUpDuration, tUp);
+
+          // Obtain the instantenous size and alpha of the ripple.
+          var radius = waveRadiusFn(tDown, tUp, anim);
+          var waveAlpha =  waveOpacityFn(tDown, tUp, anim);
+          var waveColor = cssColorWithAlpha(wave.waveColor, waveAlpha);
+          lastWaveColor = wave.waveColor;
+
+          // Position of the ripple.
+          var x = wave.startPosition.x;
+          var y = wave.startPosition.y;
+
+          // Ripple gravitational pull to the center of the canvas.
+          if (wave.endPosition) {
+
+            // This translates from the origin to the center of the view  based on the max dimension of
+            var translateFraction = Math.min(1, radius / wave.containerSize * 2 / Math.sqrt(2) );
+
+            x += translateFraction * (wave.endPosition.x - wave.startPosition.x);
+            y += translateFraction * (wave.endPosition.y - wave.startPosition.y);
+          }
+
+          // If we do a background fill fade too, work out the correct color.
+          var bgFillColor = null;
+          if (this.backgroundFill) {
+            var bgFillAlpha = waveOuterOpacityFn(tDown, tUp, anim);
+            bgFillColor = cssColorWithAlpha(wave.waveColor, bgFillAlpha);
+          }
+
+          // Draw the ripple.
+          drawRipple(wave, x, y, radius, waveAlpha, bgFillAlpha);
+
+          // Determine whether there is any more rendering to be done.
+          var maximumWave = waveAtMaximum(wave, radius, anim);
+          var waveDissipated = waveDidFinish(wave, radius, anim);
+          var shouldKeepWave = !waveDissipated || maximumWave;
+          // keep rendering dissipating wave when at maximum radius on upAction
+          var shouldRenderWaveAgain = wave.mouseUpStart ? !waveDissipated : !maximumWave;
+          shouldRenderNextFrame = shouldRenderNextFrame || shouldRenderWaveAgain;
+          if (!shouldKeepWave || this.cancelled) {
+            deleteTheseWaves.push(wave);
+          }
+       }
+
+        if (shouldRenderNextFrame) {
+          requestAnimationFrame(this._loop);
+        }
+
+        for (var i = 0; i < deleteTheseWaves.length; ++i) {
+          var wave = deleteTheseWaves[i];
+          removeWaveFromScope(this, wave);
+        }
+
+        if (!this.waves.length && this._loop) {
+          // clear the background color
+          this.$.bg.style.backgroundColor = null;
+          this._loop = null;
+          this.fire('core-transitionend');
+        }
+      }
+
+    });
+
+  })();
+
+</script>
+</polymer-element>
+
+
+<polymer-element name="paper-calculator-key" on-down="{{downAction}}" on-up="{{upAction}}" assetpath="">
+
+  <template>
+
+    <style>
+
+      :host {
+        display: block;
+        position: relative;
+      }
+
+      #keyLabel, .ink-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      #keyLabel {
+        pointer-events: none;
+      }
+
+      .ink-center {
+        position: relative;
+        width: 0;
+        height: 0;
+      }
+
+      #ink {
+        position: absolute;
+        top: -30px;
+        left: -30px;
+        width: 60px;
+        height: 60px;
+        color: rgb(241, 250, 65);
+        pointer-events: none;
+      }
+
+      .small {
+        font-size: smaller;
+      }
+
+    </style>
+
+    <div class="ink-container" horizontal="" center-justified="" center="" layout="">
+      <div class="ink-center">
+        <paper-ripple id="ink" class="circle recenteringTouch" initialopacity="0.85" opacitydecayvelocity="2"></paper-ripple>
+      </div>
+    </div>
+
+    <div id="keyLabel" horizontal="" center-justified="" center="" layout="">{{label}}</div>
+
+  </template>
+
+  <script>
+
+    Polymer('paper-calculator-key', {
+
+      publish: {
+        label: {reflect: true}
+      },
+
+      labelChanged: function() {
+        this.$.keyLabel.classList.toggle('small', this.label === 'DEL');
+      },
+
+      downAction: function(e) {
+        this.$.ink.downAction(e);
+      },
+
+      upAction: function() {
+        this.$.ink.upAction();
+      },
+
+      cancelKey: function(e) {
+        e.preventTap();
+        this.resetInk();
+      },
+
+      resetInk: function() {
+        this.$.ink.cancel();
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
+
+
+<polymer-element name="paper-calculator-keygrid" attributes="keys" assetpath="">
+
+  <template>
+  
+    <style>
+    
+      :host {
+        position: relative;
+      }
+      
+      #keys {
+        width: 100%;
+        height: 100%;
+      }
+      
+      .handle-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 24px;
+      }
+    
+    </style>
+    
+    <div id="keys" horizontal="" layout="">
+      <template repeat="{{col in keys}}">
+        <div flex="" vertical="" layout="">
+          <template repeat="{{col}}">
+            <paper-calculator-key flex="" label="{{}}" on-tap="{{keyTap}}"></paper-calculator-key>
+          </template>
+        </div>
+      </template>
+    </div>
+    <div class="handle-bar" on-tap="{{handleBarTap}}"></div>
+  </template>
+  <script>
+  
+    Polymer('paper-calculator-keygrid', {
+      keyTap: function(e) {
+        this.fire('cal-keytap', {key: e.target.templateInstance.model});
+      },
+      handleBarTap: function(e) {
+        e.preventDefault();
+      },
+      findKey: function(label) {
+        return this.$.keys.querySelector('[label="' + label + '"]');
+      }
+    });
+  </script>
+  
+</polymer-element>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+
+
+<polymer-element name="paper-calculator-panels" attributes="drawerWidthRatio opened margin wideMode responsiveWidth" assetpath="">
+
+  <template>
+    
+    <style>
+    
+      :host {
+        display: block;
+        overflow: hidden;
+      }
+      
+      #panelContainer {
+        display: block;
+        position: relative;
+        height: 100%;
+      }
+      
+      #main {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      
+      #panelContainer.wide-layout > #main {
+        right: auto;
+      }
+      
+      #drawer {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 100%;
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+        transition: -webkit-transform 0.13s linear;
+        transition: transform 0.13s linear;
+      }
+      
+      #drawer.dragging {
+        transition: none;
+      }
+      
+      polyfill-next-selector { content: '#main > *, #drawer > *'; }
+      ::content > * {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      
+    </style>
+    
+    <div id="panelContainer" class="{{wideMode ? 'wide-layout' : ''}}">
+    
+      <div id="main">
+        <content select="[main]"></content>
+      </div>
+      
+      <div id="drawer" on-trackstart="{{trackStart}}" on-trackx="{{trackx}}" on-trackend="{{trackEnd}}">
+        <content select="[drawer]"></content>
+      </div>
+    
+    </div>
+    
+    <core-media-query query="min-width: {{responsiveWidth}}" querymatches="{{wideMode}}"></core-media-query>
+    
+  </template>
+  
+  <script>
+  
+    Polymer('paper-calculator-panels', {
+      
+      wideMode: false,
+      responsiveWidth: '',
+      margin: 10,
+      drawerWidthRatio: 0,
+      opened: false,
+      
+      observe: {
+        wideMode: 'updateSize',
+        drawerWidthRatio: 'updateSize'
+      },
+      
+      marginChanged: function() {
+        this.$.panelContainer.style.width = 'calc(100% - ' + 
+            (this.wideMode ? 0 : this.margin) + 'px)';
+      },
+      
+      updateSize: function() {
+        var w = 1 / (1 + this.drawerWidthRatio) * 100;
+        this.$.main.style.width = this.$.drawer.style.left = 
+            this.wideMode ? w + '%' : '';
+        this.$.drawer.style.width = this.wideMode ? 
+            100 - w + '%' : this.drawerWidthRatio * 100 + '%';
+        this.opened = false;
+        this.marginChanged();
+      },
+      
+      openedChanged: function() {
+        this.positionDrawer(this.opened ? 
+            'calc(' + this.margin + 'px - 100%)' : null);
+      },
+      
+      positionDrawer: function(x) {
+        var s = this.$.drawer.style;
+        s.webkitTransform = s.transform = x ? 'translate3d(' + x + ', 0, 0)' : '';
+      },
+      
+      trackStart: function(e) {
+        if (this.wideMode) {
+          return;
+        }
+        var w = this.$.drawer.offsetWidth;
+        var m = this.margin;
+        this._startx = this.opened ? m - w : 0;
+        this._min = this.opened ? 0 : m - w;
+        this._max = this.opened ? w - m : 0;
+        this.$.drawer.classList.add('dragging');
+        e.preventTap();
+        e.stopPropagation();
+      },
+      
+      trackx: function(e) {
+        if (this.wideMode) {
+          return;
+        }
+        var x = Math.max(this._min, Math.min(this._max, e.dx));
+        this.positionDrawer(this._startx + x + 'px');
+        e.stopPropagation();
+      },
+      
+      trackEnd: function(e) {
+        if (this.wideMode) {
+          return;
+        }
+        this.$.drawer.classList.remove('dragging');
+        var old = this.opened;
+        this.opened = e.xDirection === -1;
+        if (old == this.opened) {
+          this.openedChanged();
+        }
+        e.stopPropagation();
+      }
+      
+    });
+    
+  </script>
+  
+</polymer-element>
+
+
+<polymer-element name="paper-calculator-keypad" attributes="wideMode standardKeys advancedKeys modeKeys" assetpath="">
+
+  <template>
+
+    <style>
+    
+      :host {
+        display: block;
+        position: relative;
+        cursor: pointer;
+      }
+      
+      #outerPanels {
+        width: 100%;
+        height: 100%;
+      }
+      
+      #standard {
+        background-color: #4c4c4c;
+        font-weight: 300;
+        font-size: 2em;
+        color: #fff;
+      }
+      
+      #standard::shadow #keys > div:nth-of-type(4) {
+        background-color: #666;
+        border-left: 1px solid #444;
+      }
+      
+      .narrow #standard, 
+      .narrow #standard::shadow #keys > div:nth-of-type(4) {
+        box-shadow: inset 0 12px 12px rgba(0, 0, 0, 0.25);
+      }
+      
+      #innerPanels {
+        background-color: #40bd9e;
+      }
+      
+      [drawer] {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+      
+      .narrow #innerPanels {
+        box-shadow: -4px 0 4px rgba(0, 0, 0, 0.2);
+      }
+      
+      #advanced {
+        background-color: #40bd9e;
+        font-weight: 400;
+        font-size: 1.125em;
+        color: #f7f7f7;
+      }
+
+      .narrow #advanced {      
+        box-shadow: inset 0 7px 7px rgba(0, 0, 0, 0.25);
+      }
+      
+      #mode {
+        background-color: #1de9b6;
+        font-weight: 400;
+        font-size: 1em;
+        color: #777;
+      }
+
+      .narrow #mode {      
+        box-shadow: -4px 0 4px rgba(0, 0, 0, 0.2), inset 0 5px 5px rgba(0, 0, 0, 0.25);
+      }
+      
+    </style>
+    
+    <paper-calculator-panels id="outerPanels" class="{{ {narrow : !wideMode} | tokenList}}" margin="{{margin}}" widemode="{{wideMode}}" drawerwidthratio="0.8">
+    
+      <paper-calculator-keygrid id="standard" main="" keys="{{standardKeys}}"></paper-calculator-keygrid>
+    
+      <paper-calculator-panels id="innerPanels" drawer="" margin="{{margin}}" widemode="{{wideMode}}" drawerwidthratio="0.2">
+      
+        <paper-calculator-keygrid id="advanced" main="" keys="{{advancedKeys}}"></paper-calculator-keygrid>
+        
+        <paper-calculator-keygrid id="mode" drawer="" keys="{{modeKeys}}"></paper-calculator-keygrid>
+        
+      </paper-calculator-panels>
+      
+    </paper-calculator-panels>
+    
+  </template>
+
+  <script>
+
+    Polymer('paper-calculator-keypad', {
+      
+      margin: 24,
+      
+      findKey: function(label) {
+        var ps = [this.$.standard, this.$.advanced, this.$.mode];
+        for (var i = 0, p; p = ps[i]; i++) {
+          var key = p.findKey(label);
+          if (key) {
+            return key;
+          }
+        }
+      },
+      
+      get equalKey() {
+        return this.$.standard.findKey('=');
+      }
+      
+    });
+
+  </script>
+
+</polymer-element>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+
+
+<polymer-element name="paper-calculator-math" attributes="expression result" assetpath="">
+  
+  <script>
+  
+    Polymer('paper-calculator-math', {
+      
+      eval: function() {
+        var s = this.expression;
+        s = s.replace(/\u00D7/g, '*').replace(/\u00F7/g, '/');
+        try {
+          this.result = eval(s);
+        } catch (x) {
+          this.result = '?';
+        }
+      }
+    
+    });
+    
+  </script>
+  
+</polymer-element>
+
+
+<polymer-element name="paper-calculator" attributes="expression result wideMode responsiveWidth" tabindex="0" assetpath="">
+
+  <template>
+
+    <style>
+
+      :host {
+        display: block;
+        position: relative;
+        background-color: #eee;
+        overflow: hidden;
+
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-touch-callout: none;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #output {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 38%;
+        z-index: 1;
+      }
+
+      #output.wide {      
+        box-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      #keypad {
+        position: absolute;
+        top: 38%;
+        bottom: 0;
+        width: 100%;
+      }
+
+      #resultInk {
+        position: absolute;
+        border-radius: 50%;
+        background-color: #73daeb;
+        -webkit-transform: translateZ(0) scale(0);
+        transform: translateZ(0) scale(0);
+      }
+
+      #resultInk.error {
+        background-color: #f50057;
+      }
+
+      #resultInk.spill {
+        -webkit-transform: translateZ(0) scale(1);
+        transform: translateZ(0) scale(1);
+        -webkit-transition: -webkit-transform 0.38s ease-out;
+        transition: transform 0.38s ease-out;
+      }
+
+    </style>
+
+    <div id="resultInk" class="{{ {spill : result, error : error} | tokenList }}"></div>
+
+    <paper-calculator-output id="output" class="{{ {wide : wideMatches || wideMode} | tokenList}}" expression="{{expression}}" result="{{result}}" error="{{error}}"></paper-calculator-output>
+
+    <paper-calculator-keypad id="keypad" widemode="{{wideMatches || wideMode}}" standardkeys="{{standardKeys}}" advancedkeys="{{advancedKeys}}" modekeys="{{modeKeys}}" on-cal-keytap="{{keyTap}}"></paper-calculator-keypad>
+
+    <paper-calculator-math id="math" expression="{{expression}}" result="{{result}}" error="{{error}}"></paper-calculator-math>
+ 
+    <core-media-query query="min-width: {{responsiveWidth}}" querymatches="{{wideMatches}}"></core-media-query>
+
+  </template>
+
+  <script>
+
+    Polymer('paper-calculator', {
+
+      domReady: function() {
+        this.updateResultInk();
+        window.addEventListener('resize', this.updateResultInk.bind(this));
+      },
+   
+      standardKeys: [
+        ['7', '4', '1', '.'],
+        ['8', '5', '2', '0'],
+        ['9', '6', '3', '='],
+        ['DEL', '+', '-', '\u00F7', '\u00D7'],
+      ],
+
+      advancedKeys: [
+        ['2nd', '1/x', 'x!', 'sin', 'sinh', 'EXP'],
+        ['(', 'x\u00B2', '\u221A', 'cos', 'cosh', '\u03A0'],
+        [')', 'x\u00B3', '\u207F \u221Ay', 'tan', 'tanh', 'EE'],
+        ['%', 'y\u207F', 'log', 'ln', 'e\u207F', 'Rand']
+      ],
+
+      modeKeys: [
+        ['Deg', 'Rad', 'func', 'Table', 'Graph', '']
+      ],
+
+      errorMsgs: ['error...', 'umm...', ':-('],
+
+      /**
+       * If true, calculator changes to wide layout.
+       *
+       * @attribute wideMode
+       * @type boolean
+       * @default false
+       */
+      wideMode: false,
+
+      /**
+       * Min-width when calculator changes to wide layout.
+       *
+       * @attribute responsiveWidth
+       * @type string
+       * @default ''
+       */
+      responsiveWidth: '',
+
+      /**
+       * The expression entered to the calculator.
+       *
+       * @attribute expression
+       * @type string
+       * @default ''
+       */
+      expression: '',
+
+      /**
+       * The result from evaluating the expression.
+       *
+       * @attribute result
+       * @type string
+       * @default ''
+       */
+      result: '',
+
+      eventDelegates: {
+        keydown: 'keyDown',
+        keypress: 'keyPress'
+      },
+
+      clear: function() {
+        this.expression = '';
+        this.result = '';
+        this.error = '';
+      },
+
+      del: function() {
+        this.expression = this.expression.slice(0, -1);
+      },
+
+      eval: function() {
+        this.$.math.eval();
+      },
+
+      keyTap: function(e) {
+        var k = e.detail.key;
+        if (this.modeKeys[0].indexOf(k) < 0) {
+          this.processKey(k);
+        }
+      },
+
+      keyDown: function(e) {
+        // backspace key
+        if (e.keyCode === 8) {
+          this.del();
+          e.preventDefault();
+        }
+      },
+
+      keyPress: function(e) {
+        var c = e.keyCode, k;
+        // enter key
+        if (c === 13) {
+          k = '=';
+        } else {
+          k = String.fromCharCode(c);
+        }
+        var key = this.$.keypad.findKey(k);
+        this.processKey(k);
+        e.preventDefault();
+      },
+
+      processKey: function(k) {
+        if (this.result && k !== '=') {
+          this.clear();
+        }
+        if (k === '=') {
+          this.async(this.eval);
+        } else if (k === 'DEL') {
+          this.del();
+        } else {
+          this.expression += k;
+        }
+      },
+
+      updateResultInk: function() {
+        var rect = this.getBoundingClientRect();
+        var keyRect = this.$.keypad.equalKey.getBoundingClientRect();
+        var s  = this.$.resultInk.style;
+        var t = keyRect.top - rect.top + keyRect.height / 2;
+        s.top = -t + 'px';
+        s.left = -t * 2 + (keyRect.left - rect.left + keyRect.width / 2) + 'px';
+        s.width = s.height = 4 * t + 'px';
+      },
+
+      resultChanged: function() {
+        if (this.result === '?') {
+          this.error = this.errorMsgs[Math.floor(Math.random() * 
+              this.errorMsgs.length)];
+        }
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
+</div>
+  <div hidden><!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link href="//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet" type="text/css">
+</div>
+
+  <style>
+  
+    body, html {
+      height: 100%;
+    }
+  
+    body {
+      font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+      margin: 0;
+    }
+    
+    paper-calculator {
+      width: 100%;
+      height: 100%;
+    }
+    
+    @media screen and (max-height: 400px) {
+      body {
+        font-size: 13px;
+      }
+    }
+    
+  </style>
+
+</head>
+<body unresolved="">
+
+  <paper-calculator responsivewidth="800px"></paper-calculator>
+  
+</body>
+</html>

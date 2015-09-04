@@ -1,0 +1,57 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="wc-panel" attributes="heading selected">
+  <template>
+    <div hidden?="{{!selected}}">
+      <content></content>
+    </div>
+  </template>
+  <script>
+    Polymer('wc-panel', {
+      selected: false
+    });
+  </script>
+</polymer-element>
+
+<polymer-element name="wc-tabs" attributes="heading">
+<template>
+  <link rel="stylesheet" href="../css/tabs.css"/>
+  <aside>{{heading}}</aside>
+  <div class="tab-wrapper">
+    <template repeat="{{panel in panels}}">
+      <h2 on-click="{{select}}" class="{{ {active: panel.selected} | tokenList }}">{{panel.heading}}</h2>
+    </template>
+  </div>
+  <div class="contents">
+    <content select="wc-panel"></content>
+  </div>
+</template>
+<script>
+  Polymer('wc-tabs', {
+    heading: '',
+    ready: function() {
+      this.panels = [].slice.call(this.children);
+
+      if (this.panels.length) {
+        this.panels[0].selected = true;
+      }
+      // Keep this.panels in sync. Use a MO to monitor add/removal of light dom children.
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type == 'childList') {
+            this.panels = [].slice.call(this.children);
+          }
+        }.bind(this));
+      }.bind(this));
+
+      observer.observe(this, {childList: true});
+    },
+    select: function(e, detail, sender) {
+      this.panels.forEach(function(panel) {
+        panel.selected = false;
+      });
+      sender.templateInstance.model.panel.selected = true;
+    }
+  });
+</script>
+</polymer-element>

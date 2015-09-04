@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<script src="bower_components/platform/platform.js"></script>
+		<link rel="import" href="elements/itironman-card.html">
+		<style>
+		body{ margin:0}
+		</style>
+	</head>
+	<body unresolved>
+		<template bind='{{info}}'>		
+			<itironman-card name='{{name}}' day='{{day}}'>
+				<h1>{{title}}</h1>
+				<img src="{{imageurl}}">
+			</itironman-card>
+		</template>
+		<script>
+			var info = 	location.hash.split('#');
+			document.querySelector('template').model =
+			{
+				info: {
+					name: info[1],
+					day: info[2],
+					title: info[3],
+					imageurl: info[4]
+				}
+			};
+		</script>
+	</body>
+</html>
